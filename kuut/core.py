@@ -86,8 +86,7 @@ class kuut(tqdm):
      
     def __init__(self, steps: List[kstep], *args, **kwargs):
         self.steps = steps        
-        kwargs['total'] = self.pbar_total
-        kwargs['display'] = False
+        kwargs['total'] = self.pbar_total        
         super().__init__(*args, **kwargs)
 
     def __enter__(self):
