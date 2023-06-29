@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "core",
+    "section": "",
+    "text": "/opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Attributes\n  else: warn(msg)\n/opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Methods\n  else: warn(msg)\n\nsource\n\n\n\n kstep (num:int, sub:Optional[int]=None, val:Optional[int]=1,\n        desc:Optional[str]=None)\n\nA dataclass to store step information.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nnum\nint\n\nThe main number of the step.\n\n\nsub\nOptional\nNone\nThe sub number of the step, if it exists.\n\n\nval\nOptional\n1\nThe value of the step.\n\n\ndesc\nOptional\nNone\nA description for the step.\n\n\n\n\n\n\n\n(\n    step_1.is_sub(step_1_0),\n    step_1_0.is_sub(step_1),\n    step_1_0.is_sub(step_1_0), \n    step_1_0.is_sub(step_2), \n    step_1_0.is_sub(step_3_0), \n)\n\n(False, True, True, False, False)"
+  },
+  {
+    "objectID": "core.html#kstep",
+    "href": "core.html#kstep",
+    "title": "core",
+    "section": "",
+    "text": "/opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Attributes\n  else: warn(msg)\n/opt/hostedtoolcache/Python/3.11.4/x64/lib/python3.11/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Methods\n  else: warn(msg)\n\nsource\n\n\n\n kstep (num:int, sub:Optional[int]=None, val:Optional[int]=1,\n        desc:Optional[str]=None)\n\nA dataclass to store step information.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nnum\nint\n\nThe main number of the step.\n\n\nsub\nOptional\nNone\nThe sub number of the step, if it exists.\n\n\nval\nOptional\n1\nThe value of the step.\n\n\ndesc\nOptional\nNone\nA description for the step.\n\n\n\n\n\n\n\n(\n    step_1.is_sub(step_1_0),\n    step_1_0.is_sub(step_1),\n    step_1_0.is_sub(step_1_0), \n    step_1_0.is_sub(step_2), \n    step_1_0.is_sub(step_3_0), \n)\n\n(False, True, True, False, False)"
+  },
+  {
+    "objectID": "core.html#kuut",
+    "href": "core.html#kuut",
+    "title": "core",
+    "section": "kuut",
+    "text": "kuut\n\nsource\n\nkuut\n\n kuut (*args, **kwargs)\n\nA progress bar class that extends tqdm and operates with kstep instances.\n\n\nBasic Examples\n\n# create a list of steps\nsteps = [kstep(num=i, sub=i+1, val=i+2, desc=f\"Step {i}\") for i in range(10)]\n\n# create a kuut instance\npbar = kuut(steps=steps, display=False)\n\n# use the properties\n(\n    pbar.pbar_total, # outputs: 65\n    pbar.step_nums,  # outputs: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n    pbar.num_main_steps  # outputs: 10\n)\n\n(65, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10)\n\n\n\n(\n    pbar.does_step_exist(5, 6), # outputs: True\n    pbar.does_step_exist(5), # outputs: False\n    pbar.get_step(5, 6) # outputs: kstep(num=5, sub=6, val=7, desc='Step 5')\n)\n\n(True, False, kstep(num=5, sub=6, val=7, desc='Step 5'))\n\n\n\npbar.container\n\n\n\n\n\npbar.step(5, 6) # outputs: Step 5.6\n\n\nimport time\npbar = kuut(steps=steps)\nfor _ in pbar:\n    # Simulate some work\n    time.sleep(0.1)\n    pbar.step(_.num, _.sub)\n\n\n\n\n\n\nComplex Example\n\nsteps = [\n        kstep(1, val=20, desc='download'),\n        kstep(2, sub=0, val=5, desc='load_timepoints'),\n        kstep(2, sub=1, val=5, desc='load_timepoints'),\n        kstep(2, sub=2, val=5, desc='load_timepoints'),\n        kstep(2, sub=3, val=5, desc='load_timepoints'),\n        kstep(2, sub=4, val=5, desc='load_timepoints'),\n        # kstep(2, val=25, desc='load_timepoints'),\n        kstep(3, sub=0, val=5, desc='library_fitlering'),\n        kstep(3, sub=1, val=5, desc='library_fitlering'),\n        kstep(3, sub=2, val=5, desc='library_fitlering'),\n        kstep(3, sub=3, val=5, desc='library_fitlering'),\n        kstep(3, sub=4, val=5, desc='library_fitlering'),\n        # kstep(3, val=25, desc='library_fitlering'),\n        kstep(4, val=5, desc='merge_data'),\n        kstep(5, sub=0, val=5, desc='filter_data'),\n        kstep(5, sub=1, val=5, desc='filter_data'),\n        kstep(5, sub=2, val=5, desc='filter_data'),\n        kstep(5, sub=3, val=5, desc='filter_data'),\n        kstep(5, sub=4, val=5, desc='filter_data'),\n        kstep(5, sub=5, val=5, desc='filter_data'),\n        # kstep(5, val=30, desc='filter_data'),\n        kstep(6, val=20, desc='embed'),\n        kstep(7, desc='save'),\n    ]\n\n\nk = kuut(steps, desc='test', display=False)\nk.container\n\n\n\n\n\nk.step(2)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "kuut",
+    "section": "",
+    "text": "# create conda environment\n$ mamba env create -f env.yml\n\n# update conda environment\n$ mamba env update -n kuut --file env.yml\n\n\n\npip install -e .\n\n# install from pypi\npip install kuut\n\n\n\n# activate conda environment\n$ conda activate kuut\n\n# make sure the kuut package is installed in development mode\n$ pip install -e .\n\n# make changes under nbs/ directory\n# ...\n\n# compile to have changes apply to the kuut package\n$ nbdev_prepare\n\n\n\n# publish to pypi\n$ nbdev_pypi\n\n# publish to conda\n$ nbdev_conda --build_args '-c conda-forge'"
+  },
+  {
+    "objectID": "index.html#developer-guide",
+    "href": "index.html#developer-guide",
+    "title": "kuut",
+    "section": "",
+    "text": "# create conda environment\n$ mamba env create -f env.yml\n\n# update conda environment\n$ mamba env update -n kuut --file env.yml\n\n\n\npip install -e .\n\n# install from pypi\npip install kuut\n\n\n\n# activate conda environment\n$ conda activate kuut\n\n# make sure the kuut package is installed in development mode\n$ pip install -e .\n\n# make changes under nbs/ directory\n# ...\n\n# compile to have changes apply to the kuut package\n$ nbdev_prepare\n\n\n\n# publish to pypi\n$ nbdev_pypi\n\n# publish to conda\n$ nbdev_conda --build_args '-c conda-forge'"
+  },
+  {
+    "objectID": "index.html#installation",
+    "href": "index.html#installation",
+    "title": "kuut",
+    "section": "Installation",
+    "text": "Installation\nInstall latest from the GitHub repository:\n$ pip install git+https://github.com/dsm-72/kuut.git\nor from conda\n$ conda install -c dsm-72 kuut\nor from pypi\n$ pip install kuut"
+  },
+  {
+    "objectID": "index.html#documentation",
+    "href": "index.html#documentation",
+    "title": "kuut",
+    "section": "Documentation",
+    "text": "Documentation\nDocumentation can be found hosted on GitHub repository pages. Additionally you can find package manager specific guidelines on conda and pypi respectively."
+  }
+]
